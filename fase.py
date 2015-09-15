@@ -38,6 +38,8 @@ class Fase():
 
 
     def adicionar_obstaculo(self, *obstaculos):
+        self ._obstaculos.extend(obstaculos)
+        
         """
         Adiciona obstáculos em uma fase
 

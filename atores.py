@@ -37,7 +37,8 @@ class Ator():
         :param tempo: o tempo do jogo
         :return: posição x, y do ator
         """
-        return 1, 1
+
+        return self.x, self.y
 
     def colidir(self, outro_ator, intervalo=1):
         """
@@ -51,16 +52,19 @@ class Ator():
         :param intervalo: Intervalo a ser considerado
         :return:
         """
-        pass
-
+        if self.status == ATIVO and outro_ator.status == ATIVO:
+            if self.x - intervalo <= outro_ator.x <= self.x + intervalo and self.y - intervalo <= outro_ator.y <= self.y + intervalo:
+                self.status = DESTRUIDO
+                outro_ator.status = DESTRUIDO
 
 
 class Obstaculo(Ator):
-    pass
+    _caracter_ativo = 'O'
 
 
 class Porco(Ator):
-    pass
+    _caracter_ativo = '@'
+    _caracter_destruido = '+'
 
 
 class Passaro(Ator):
@@ -85,10 +89,9 @@ class Passaro(Ator):
     def foi_lancado(self):
         """
         Método que retorna verdaeira se o pássaro já foi lançado e falso caso contrário
-
         :return: booleano
         """
-        return True
+        return self._tempo_de_lancamento is not None
 
     def colidir_com_chao(self):
         """
@@ -96,7 +99,9 @@ class Passaro(Ator):
         o status dos Passaro deve ser alterado para destruido, bem como o seu caracter
 
         """
-        pass
+        if self.y <= 0:
+            self.status = DESTRUIDO
+            self.caracter()
 
     def calcular_posicao(self, tempo):
         """
@@ -112,8 +117,7 @@ class Passaro(Ator):
         :param tempo: tempo de jogo a ser calculada a posição
         :return: posição x, y
         """
-        return 1, 1
-
+        return self.x, self.y
 
     def lancar(self, angulo, tempo_de_lancamento):
         """
@@ -123,13 +127,18 @@ class Passaro(Ator):
         :param angulo:
         :param tempo_de_lancamento:
         :return:
-        """
-        pass
+      """
+        self._angulo_de_lancamento = math.radians(angulo)
+        _tempo_de_lancamento = tempo_de_lancamento
+        return math.radians(angulo)
 
 
 class PassaroAmarelo(Passaro):
-    pass
-
+    velocidade_escalar = 30
+    _caracter_destruido = "a"
 
 class PassaroVermelho(Passaro):
-    pass
+    velocidade_escalar = 20
+    _caracter_ativo = "V"
+    _caracter_destruido = "v"
+
