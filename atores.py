@@ -128,9 +128,9 @@ class Passaro(Ator):
         :param tempo_de_lancamento:
         :return:
       """
-        self._angulo_de_lancamento = math.radians(angulo)
+        _angulo_de_lancamento = math.radians(angulo)
         _tempo_de_lancamento = tempo_de_lancamento
-        return math.radians(angulo)
+        
 
 
 class PassaroAmarelo(Passaro):
