@@ -56,6 +56,8 @@ class Ator():
             if self.x - intervalo <= outro_ator.x <= self.x + intervalo and self.y - intervalo <= outro_ator.y <= self.y + intervalo:
                 self.status = DESTRUIDO
                 outro_ator.status = DESTRUIDO
+                self.caracter()
+                outro_ator.caracter()
 
 
 class Obstaculo(Ator):
@@ -117,6 +119,11 @@ class Passaro(Ator):
         :param tempo: tempo de jogo a ser calculada a posição
         :return: posição x, y
         """
+
+        if self.status == ATIVO and self.foi_lancado():
+            delta_t = tempo - self._tempo_de_lancamento
+            self.x = self._x_inicial + self.velocidade_escalar * math.cos(self._angulo_de_lancamento) * delta_t
+            self.y =self._y_inicial + self.velocidade_escalar * math.sin(self._angulo_de_lancamento) * delta_t - (GRAVIDADE * delta_t ** 2)/2
         return self.x, self.y
 
     def lancar(self, angulo, tempo_de_lancamento):
@@ -129,9 +136,11 @@ class Passaro(Ator):
         :return:
       """
 
-        _angulo_de_lancamento = math.radians(angulo)
-        _tempo_de_lancamento = tempo_de_lancamento
-        
+        self._angulo_de_lancamento = math.radians(angulo)
+        self._tempo_de_lancamento = tempo_de_lancamento
+
+
+
 
 
 class PassaroAmarelo(Passaro):
