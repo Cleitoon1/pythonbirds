@@ -7,7 +7,6 @@ DESTRUIDO = 'Destruido'
 ATIVO = 'Ativo'
 GRAVIDADE = 10  # m/s^2
 
-
 class Ator():
     """
     Classe que representa um ator. Ele representa um ponto cartesiano na tela.
